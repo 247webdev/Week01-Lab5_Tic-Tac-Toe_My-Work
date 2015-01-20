@@ -6,12 +6,32 @@ body {
 	height: 900px;
 	overflow: scroll;
 	min-width: 770px;
+	font-family: "Century Gothic", "Verdana", sans-serif;
+}
+h1 {
+	font: "Verdana";
+	font-size: 400%;
+}
+.playerAlpha {
+	background-color: red;
+}
+.playerBeta {
+	background-color: blue;
 }
 .hideMe {
 	display: none;
 }
+#resetBtn {
+	position: fixed;
+	top: 30px;
+	left: 10px;
+	font-size: 2em;
+	font-weight: bolder;
+	background-color: #f00000;
+	border-radius: 10px;
+}
 #whosFirst {
-	display: block;
+//	display: none;
 }
 #whosFirst>label {
 	margin-right: 40px;
@@ -35,8 +55,10 @@ input {
 input.getName {
 	width: 200px;
 }
+/*
 input[type=submit] {
 }
+*/
 .gameCell	{
 	position: relative;
 	height: 100px;
@@ -81,13 +103,6 @@ They are used to select the cells to then be able to add the .thisWon class whic
 	@-webkit-keyframes animateWinner { 50% {color: black;} } /* Chrome, Safari, Opera */
 	@keyframes animateWinner { 50% {color: black;} /* Standard syntax */
 
-
-.xPlayed {
-	
-}
-.oPlayed {
-	
-}
 
 
     -webkit-transition:display 1.2s, height .8s, -webkit-transform 1.8s;

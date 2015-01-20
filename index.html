@@ -23,66 +23,68 @@
 
 		<header class="row">
 			<div class="large-12 columns text-center">
+				<form>
+					<button id="resetBtn">Reset Game</button> <!-- I want the page to refresh to give the side effect of reloading the HTML into the DOM --> 
+				</form>
+
 				<h1 class="subheader">Tic-Tac-Toe</h1>
-				<form id="player" onsubmit="setPlayersName()">
-					<h3 class="subheader getName">Hello! What's your name? </h3> <!--After submit, this section dynamically changes -->
+
+				<form id="player" class="hideAfterFirst" onsubmit="setPlayersName()">
+					<h3 class="subheader putName">Hello! What's your name?</h3> <!--After submit, this section dynamically changes -->
 					<span class="hideAfterName">
-						<input class="getName" id="getPlayersName" placeholder="First name" autofocus>
+						<input class="getName" id="getPlayersName" placeholder="Your name" autofocus>
 						<input id="submitName" type="submit" value="Submit">
 					</span>
+
+					<form class="form-horizontal col-sm-4 hideAfterFirst" action="javascript:void(0)" role="form">
+						<div class="row">
+
+							<div class="text-center showAfterName hideMe" id="whosFirst">
+								<h3>X moves first. Who will be X?</h3>
+								<label>
+									<a id="computer">
+										<i class="fa fa-laptop fa-5x"></i><br>Computer
+									</a>
+								</label>
+								<label>
+									<a id="human">
+										<i class="fa fa-user fa-5x"></i><br><span id="playersName"></span>
+									</a>
+								</label>
+							</div><!-- end div#whosFirst -->
+
+						</div><!-- end div.row of the left column -->
+					</form>
 				</form>
 			</div>
 		</header> <!-- .row -->
 		<br>
 		<div class="row"><!-- Bootstrap container -->
 
-			<form class="form-horizontal col-sm-4" action="javascript:void(0)" role="form">
-				<div class="row">
-
-					<div class="text-center" id="whosFirst">
-						<h3>Who will be X?<br>X moves first.</h3>
-						<label>
-							<a id="computer">
-								<i class="fa fa-laptop fa-5x"></i><br>Computer
-							</a>
-						</label>
-						<label>
-							<a id="human">
-								<i class="fa fa-user fa-5x"></i><br>Human
-							</a>
-						</label>
-<!-- 						<div class="form-group">
-							<label for="playersName">Your Name:</label>
-							<input autofocus type="name" class="form-control" id="playersName" placeholder="Enter your name">
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
- -->
-
-					</div><!-- end div of the left column -->
-				</div><!-- end div.row of the left column -->
-			</form>
-
-			<div id="boardBackground" class="col-sm-4"><!-- center board -->
+			<div class="text-center col-sm-4 showAfterFirst hideMe playerAlpha"> <!-- toggled between playerAlpha and playerBeta -->
+				<h3 id="nextMove">The next player to move is:<br><span id="nextPlayer"></span></h3>
+			</div><!-- end div.row of the left column that shows next player -->
+			<div id="boardBackground" class="col-sm-4 showAfterFirst hideMe"><!-- center board   col-sm-offset-4 -->
 				<div class="row"><!-- Row 1 container -->
 					<!-- col1 row1 aka 1-1 -->
-					<span id="one-one" class="col-sm-4 text-center gameCell col1 row1 diagnal1">X</span>
+					<span id="one-one" class="col-sm-4 text-center gameCell col1 row1 diagnal1"></span>
 					<!-- col2 row1 aka 2-1 -->
-					<span id="two-one" class="col-sm-4 text-center gameCell col2 row1">X</span>
+					<span id="two-one" class="col-sm-4 text-center gameCell col2 row1"></span>
 					<!-- col3 row1 aka 3-1 -->
-					<span id="three-one" class="col-sm-4 text-center gameCell col3 row1 diagnal2">X</span>
+					<span id="three-one" class="col-sm-4 text-center gameCell col3 row1 diagnal2"></span>
 				</div>
 
 				<div class="row"><!-- Row 2 container -->
 					<!-- cow2 rol1 aka 1-2 -->
-					<span id="one-two" class="col-sm-4 text-center gameCell col2 row1">O</span>
-					<span id="two-two" class="col-sm-4 text-center gameCell col2 row2 diagnal1 diagnal2">O</span><!-- cow2 rol2 aka 2-2 -->
-					<span id="three-two" class="col-sm-4 text-center gameCell col2 row3">O</span><!-- cow2 rol3 aka 3-2 -->
+					<span id="one-two" class="col-sm-4 text-center gameCell col2 row1"></span>
+					<span id="two-two" class="col-sm-4 text-center gameCell col2 row2 diagnal1 diagnal2"></span><!-- cow2 rol2 aka 2-2 -->
+					<span id="three-two" class="col-sm-4 text-center gameCell col2 row3"></span><!-- cow2 rol3 aka 3-2 -->
 				</div>
 
 				<div class="row"><!-- Row 3 container -->
-					<span id="one-three" class="col-sm-4 text-center gameCell col3 row1 diagnal2">O</span><!-- cow3 rol1 aka 1-3 -->
-					<span id="two-three" class="col-sm-4 text-center gameCell col3 row2">X</span><!-- cow3 rol2 aka 2-3 -->
-					<span id="three-three" class="col-sm-4 text-center gameCell col3 row3 diagnal1">O</span><!-- cow3 rol3 aka 3-3 -->
+					<span id="one-three" class="col-sm-4 text-center gameCell col3 row1 diagnal2"></span><!-- cow3 rol1 aka 1-3 -->
+					<span id="two-three" class="col-sm-4 text-center gameCell col3 row2"></span><!-- cow3 rol2 aka 2-3 -->
+					<span id="three-three" class="col-sm-4 text-center gameCell col3 row3 diagnal1"></span><!-- cow3 rol3 aka 3-3 -->
 				</div>
 			</div><!-- /Game board background -->
 
@@ -108,11 +110,6 @@
 				</div>
 			</div> -->
 		</div><!-- /Game board container -->
-		<br>
-
-		<div class="row text-center">
-			<button id="resetBtn" value="Start Over">Start Over</button>
-		</div>
 
 		<footer class="row">
 		<div class="col-md-12 columns text-center">
