@@ -18,6 +18,8 @@ var readyNewGame = function() {
 	//clear any previous CSS styles
 		gameObj.boardStyle[i].innerHTML="";
 		gameObj.boardStyle[i].classList.remove("thisWon");
+		gameObj.boardStyle[i].style.backgroundColor = "white";
+		gameObj.boardStyle[i].style.color = "black";
 
 	//hover state for game board prior to selecting a move
 		gameObj.boardStyle[i].addEventListener("mouseover", function() { playHere("hover"); });
@@ -34,8 +36,8 @@ var addPlayerName = function(event) {
 
 document.getElementById("resetBtn").addEventListener("click", readyNewGame ); //the game is being reset
 
-document.getElementById("computer").addEventListener("click", function() { setFirstPlayer("computer") }); //the one getting clicked becomes alpha
-document.getElementById("human").addEventListener("click", function() { setFirstPlayer("human") }); //the one getting clicked becomes alpha
+document.getElementById("computer").addEventListener("click", function() { setFirstPlayer("computer"); }); //the one getting clicked becomes alpha
+document.getElementById("human").addEventListener("click", function() { setFirstPlayer("human"); }); //the one getting clicked becomes alpha
 
 var addWinClass = function(winningCells) { //array of the winning cells. Ex. ["one-one", "one-two", "one-three"]
 	for (var i=0, currentCell; i<3; i++) { //if the game board were a dynamic size then use i<winningCells.length
@@ -45,7 +47,7 @@ var addWinClass = function(winningCells) { //array of the winning cells. Ex. ["o
 }; //end function addWinnerClass
 
 var playHere = function(state) {  //this function handles "preview-move" and "play-move" via the passed in parameter.
-	if ( gameObj.gameActive ) {
+	if ( gameObj.gameActive || !event.target.classList.contains("playHere") ) {
 		if (state==="hover") {
 			event.target.classList.add("playHere");
 		} else if (state==="out") {
@@ -53,23 +55,24 @@ var playHere = function(state) {  //this function handles "preview-move" and "pl
 		} else if (state==="played") {
 			if(gameObj.numTurns%2===0) {
 				//beta's turn
-console.log(event.target);
-//				event.target.innerHTML("x");
+				event.target.innerHTML = "X";
+				event.target.style.backgroundColor = "red";
 			} else {
 				//alpha's turn
-				event.target.innerHTML("o");
-				}//end if of which player
+				event.target.innerHTML = "O";
+				event.target.style.backgroundColor = "blue";
+				event.target.style.color = "white";
+			}//end if of which player
+			gameObj.numTurns++;
+			console.log(gameObj.numTurns);
+//			document.getElementById("one-one").removeEventListener("mouseover", function() { playHere("hover"); });
+//			event.target.removeEventListener("mouseover", function() { playHere("hover"); });
+//			event.target.removeEventListener("mouseout", function() { playHere("out"); });
+//			event.target.removeEventListener("click", function() { playHere("played"); });
+			console.log(event.target);
 		}//end if of state
-	};
-	
-	/*
-	if (state === 1) {
-		event.target.addClass('playHere')
-	} else {
-		event.target.removeClass('playHere')
-	};
-*/
-};
+	} //end if gameActive
+}; //end of playHere function
 
 /*	for (var i = 0; i < 3; i++) {
 		for (var ii = 0; i < 3; i++) {
@@ -79,6 +82,7 @@ console.log(event.target);
 */
 
 var setFirstPlayer = function (setAlpha) {
+	readyNewGame();
 	if ( setAlpha === "human" ) {
 		gameObj.whosFirst = "human"; //set human as first player (alpha)
 	} else if (	setAlpha === "computer") {
@@ -86,14 +90,16 @@ var setFirstPlayer = function (setAlpha) {
 	}
 	gameObj.gameActive=true;
 	gameObj.numTurns=0;
-	
+//	gameObj.boardStyle[i].classList.remove("oPlayed");
 };
 
 var setPlayersName = function () {
 	event.preventDefault();
-	var newName = "Hello, " + document.getElementById("getPlayersName").value + " Shall we play a game?";
-    document.querySelector("h4.getName").innerHTML = newName;
-    document.getElementsByClassName("hideAfterName").classList.add("hideMe");
+	var newName = document.getElementById("getPlayersName").value;
+	newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+	var newName = "Hello, " + newName + ". Shall we play a game?";
+    document.querySelector("h3.getName").innerHTML = newName;
+    document.getElementsByClassName("hideAfterName")[0].classList.add("hideMe");
 
 };
 
