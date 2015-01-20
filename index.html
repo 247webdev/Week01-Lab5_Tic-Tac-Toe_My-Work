@@ -1,51 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Tic-Tac-Toe by Christain Chandler</title>
-	<!-- Normalize.css -->
-	<link rel="stylesheet" href="../../../commonTools/normalize.css">
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="WDI-16 Lab 5 Christian Chandler" name="description" />
+	<title>Tic Tac Toe - WDI-16 Lab 5 Christian Chandler</title>
 
 	<!-- Glyph icons -->
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<!-- Bootstrap CSS -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
-	<!-- custom.css -->
-	<link rel="stylesheet" href="base.css">
-	
-	<!-- jQuery -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Bootstrap theme -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet">
 
-	<style type="text/css">
-		table {
-			height: 300px;
-			width: 300px;
-			background-color: #ddd;
-		}
-	</style>
-</head>
+	<!-- local CSS -->
+	<link href='base.css' rel='stylesheet'>
+
 <body>
-	<div class="container-fluid row text-center">
-		<div id="activePlayer">Ready to start a game</div>
-		<span class="col-md-1 col-md-offset-4">
-			<div id="ul">x</div>
-			<div id="um">x</div>
-			<div id="ur">x</div>
-		</span>
-		<span class="col-md-1">
-			<div id="ml">o</div>
-			<div id="mm">o</div>
-			<div id="mr">o</div>
-		</span>
-		<span class="col-md-1">
-			<div id="ll">x</div>
-			<div id="lm">x</div>
-			<div id="lr">x</div>
+	<div class="container-fluid">
+
+		<header class="row">
+			<div class="large-12 columns text-center">
+				<h1 class="subheader">Tic-Tac-Toe</h1>
+				<h4 class="subheader">Shall we play a game?</h4>
+			</div>
+		</header> <!-- .row -->
+		<br>
+		<div class="row"><!-- Bootstrap container -->
+
+			<form class="form-horizontal col-sm-4" action="javascript:void(0)" role="form">
+
+				<div class="row">
+					<div class="small-4 columns text-center">
+						<h3 class="subheader prompt" id="prompt">Who starts?</h3>
+					</div>
+					<div class="small-4 columns text-center checkbox">
+						<label for="whoStarts">
+							<a class="computer" id="start-computer">
+								<i class="fa fa-laptop fa-5x"></i>
+								<input type="checkbox" name="whoStarts">Computer
+							</a>
+						</label>
+					</div>
+					<div class="small-4 columns text-center checkbox">
+						<a class="human" id="start-human">
+							<i class="fa fa-user fa-5x"></i>
+							<label>
+								<input type="checkbox">Human
+							</label>
+						</a>
+<!-- 						<div class="form-group">
+							<label for="playersName">Your Name:</label>
+							<input autofocus type="name" class="form-control" id="playersName" placeholder="Enter your name">
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+ -->
+
+					</div>
+				</div>
+			</form>
+
+			<div id="boardBackground" class="col-sm-4"><!-- center board -->
+				<div class="row masterRow1"><!-- Row 1 container -->
+					<span id="one-one" class="col-sm-4 text-center gameCell col1 row1 diagnal1">X</span><!-- col1 row1 aka 1-1 -->
+					<span id="two-one" class="col-sm-4 text-center gameCell col2 row1">X</span><!-- col2 row1 aka 2-1 -->
+					<span id="three-one" class="col-sm-4 text-center gameCell col3 row1 diagnal2">X</span><!-- col3 row1 aka 3-1 -->
+				</div>
+
+				<div class="row masterRow2"><!-- Row 2 container -->
+					<span id="one-two" class="col-sm-4 text-center gameCell col2 row1">O</span><!-- cow2 rol1 aka 1-2 -->
+					<span id="two-two" class="col-sm-4 text-center gameCell col2 row2 diagnal1 diagnal2">O</span><!-- cow2 rol2 aka 2-2 -->
+					<span id="three-two" class="col-sm-4 text-center gameCell col2 row3">O</span><!-- cow2 rol3 aka 3-2 -->
+				</div>
+
+				<div class="row masterRow3"><!-- Row 3 container -->
+					<span id="one-three" class="col-sm-4 text-center gameCell col3 row1 diagnal2">O</span><!-- cow3 rol1 aka 1-3 -->
+					<span id="two-three" class="col-sm-4 text-center gameCell col3 row2">X</span><!-- cow3 rol2 aka 2-3 -->
+					<span id="three-three" class="col-sm-4 text-center gameCell col3 row3 diagnal1">O</span><!-- cow3 rol3 aka 3-3 -->
+				</div>
+			</div><!-- /Game board background -->
+
+<!-- 			<div class="row">
+				<div class="small-4 columns text-center checkbox">
+					<h3 class="subheader prompt" id="prompt">Who starts?</h3>
+				</div>
+				<div class="small-4 columns text-center checkbox">
+					<a class="computer" id="start-computer">
+						<i class="fa fa-laptop fa-5x"></i>
+						<label>
+							<input type="checkbox">Computer
+						</label>
+					</a>
+				</div>
+				<div class="small-4 columns text-center checkbox">
+					<a class="human" id="start-human">
+						<i class="fa fa-user fa-5x"></i>
+						<label>
+							<input type="checkbox">Human
+						</label>
+					</a>
+				</div>
+			</div> -->
+		</div><!-- /Game board container -->
+		<br>
+
+		<div class="row text-center">
+			<button id="resetBtn" value="Start Over">Start Over</button>
 		</div>
-	</body>
-	</html>
+
+		<footer class="row">
+		<div class="col-md-12 columns text-center">
+				<h5 class="xxxxxx"></h5>
+				<h6 class="xxxxxx"></h6>
+			</div>
+		</footer> <!-- .row -->
+
+
+
+	</div> <!-- primary container .container-fluid -->
+	<!-- jQuery then Bootstrap JavaScript -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<!-- local JS -->
+	<script src='app.js'></script>
+
+</body>
+</html>
